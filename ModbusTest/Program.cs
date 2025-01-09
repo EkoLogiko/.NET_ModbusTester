@@ -17,7 +17,12 @@ namespace ModbusTest
 
             string clientIp = configuration["ClientSettings:IP"] ?? throw new Exception("Client IP not configured.");
             int clientPort = Convert.ToInt32(configuration["ClientSettings:Port"] ?? throw new Exception("Client port not configured."));
-            _client = new(clientIp, clientPort);
+            int baudRate = Convert.ToInt32(configuration["ClientSettings:BaudRate"] ?? throw new Exception("Client baud rate not configured."));
+
+            _client = new(clientIp, clientPort)
+            {
+                Baudrate = baudRate
+            };
         }
 
         static void Main(string[] args)
